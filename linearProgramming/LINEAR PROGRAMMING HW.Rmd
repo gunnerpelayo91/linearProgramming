@@ -1,0 +1,54 @@
+---
+title: "LP HW#1"
+author: "Carlos Pelayo"
+date: "4/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem
+Solve the following LP optimization problem
+
+min. 6X+5Y s.t.
+
+3x+Y=>10
+x+y=>5
+x=>3
+
+## Feasibility Plot
+
+```{r,include=TRUE}
+
+cn1=function(x){10-(3*x)}
+cn2=function(x){5-x}
+cn3=3
+plot(cn1,0,10,col="red",xlab="X",ylab="Y")
+plot(cn2,0,10,col="blue",add=TRUE)
+abline(v=3,col="purple")
+
+legend('bottomleft', c('C1','C2', 'C3'), 
+       col=c('red','blue','purple'), lty=1)
+grid()
+
+```
+## Optimization
+
+```{r}
+library(lpSolve)
+
+f.obj = c(6,5)
+f.con = matrix(c(3,1,1,1,1,0), nrow=3, byrow=TRUE)
+f.dir = c( ">=", ">=",">=")
+f.rhs = c(10,5,3)
+
+TCsolution = lp (direction = "min", f.obj, f.con, f.dir, f.rhs)
+
+print(TCsolution)
+print(TCsolution$solution)
+```
+## Solution
+The soluition is X=3 and Y=2. This minimizes the cost equation to a value of 28.
+
