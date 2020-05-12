@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Problem
 Solve the following LP optimization problem
 
-min. 6X+5Y s.t.
+min. 4X+Y s.t.
 
 3x+Y=>10
 x+y=>5
@@ -20,7 +20,7 @@ x=>3
 
 ## Feasibility Plot
 
-```{r,include=TRUE}
+```{r}
 
 cn1=function(x){10-(3*x)}
 cn2=function(x){5-x}
@@ -39,7 +39,7 @@ grid()
 ```{r}
 library(lpSolve)
 
-f.obj = c(6,5)
+f.obj = c(4,1)
 f.con = matrix(c(3,1,1,1,1,0), nrow=3, byrow=TRUE)
 f.dir = c( ">=", ">=",">=")
 f.rhs = c(10,5,3)
@@ -50,5 +50,5 @@ print(TCsolution)
 print(TCsolution$solution)
 ```
 ## Solution
-The soluition is X=3 and Y=2. This minimizes the cost equation to a value of 28.
+The soluition is X=3 and Y=2. This minimizes the cost equation to a value of 14.
 
